@@ -1,0 +1,85 @@
+<script>
+// Вычисление значения определителя матрицы
+// Ввод размера матрицы
+var pr = true;
+while ( pr ) {
+    alert ('Ввод размера матрицы.');
+    var n = 0;
+    n = vvodN(1);
+    if ( n <= 1 ) {
+        alert ('Размер матрицы д.б. больше 1.');
+    }
+    else { pr = false; }
+}
+// Ввод матрицы по строкам
+var str = 1; // счетчик строк
+var matr = new Array(n);
+for(var i = 0; i < n; i++) {
+    matr [i] = new Array(n);}
+for ( var i = 0; i < n; i++ ) { 
+    alert ('Ввод строки ' + str);
+    for ( var j = 0; j < n; j++ ) {
+       matr [i][j] = vvodN(1);  
+    }
+    str = str + 1;
+}
+alert ( matr );  
+
+//Приведение матрицы к треугольному виду.
+var b = 0; 
+var sch = 0;// счетчик переноса строк
+i = 0;
+do { 
+    if ( matr [i][i]  !== 0 ) {
+        for ( j = i + 1; j < n; j++ ) { 
+               b = matr[j][i]/matr[i][i]; 
+             for ( var k = 0; k < n; k++) { 
+                 matr[j][k] = matr[j][k] - matr[i][k] * b; 
+             }
+        } i = i + 1;
+    }
+else { var l = 1; // перенос строк
+    do { sch = sch + 1;
+        for ( j = i; j < n; j++) {
+            b = matr [i][j]; matr [i][j] = matr [i+l][j]; matr [i+l][j] = b;
+        }  
+        l = l + 1;  if ( l > n-i-1 ) { alert ( 'Определитель матрицы равен     0.');}
+     }
+     while ( matr [i][i] === 0);
+    }
+}
+while ( i < n );
+alert ( matr );
+var det = 1;
+for ( i = 0; i < n; i++) { det = det * matr [i][i];}
+det = det*st(sch);
+alert ('Определитель матрицы = '+ det);
+// ФУНКЦИИ
+// Ввод числа
+function vvodN(b) {
+    var a = b; 
+    var i = true;
+do 
+    {
+        a = prompt('Введите число');
+        if (isNaN(a)) 
+        {
+            alert ('Вы ввели не число');
+            i = true;
+        }
+        else 
+        {
+            a = Number(a);
+            return (a);
+        }
+    }
+    while (i); 
+}
+// (-1)  в степени n
+function st(n) {
+    var res = 1;
+    if ( n % 2 === 0 ) { res = 1;}
+    else { res = -1;}
+    return res;
+}
+</script>
